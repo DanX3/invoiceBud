@@ -20,5 +20,5 @@ compare: main.py
 	python3 $< --compare
 	sort booksExported > booksSorted
 	sort invoiceExported > invoiceSorted
-	rm booksExported invoiceExported
+	@#rm booksExported invoiceExported
 	vimdiff booksSorted invoiceSorted

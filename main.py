@@ -31,7 +31,7 @@ def createInvoice():
     countfile = open("invoice/counts/out.txt")
 
     for code in codefile:
-        codes.append(int(code))
+        codes.append(str(int(code)))
     codefile.close()
 
     for count in countfile:
@@ -50,9 +50,10 @@ def createInvoice():
             invoice[codes[i]] = counts[i]
     return invoice
 
-def exportBooks(books, filename):
+def exportBooks(books, filename, catalog=None):
         export = open(filename, 'w')
-        catalog = createCatalog()
+        if catalog == None:
+            catalog = createCatalog()
         exported = {}
         for (key, value) in books.items():
             if key in catalog:
@@ -61,8 +62,8 @@ def exportBooks(books, filename):
                     exported[bookdata[2]].append(bookdata)
                 else:
                     exported[bookdata[2]] = [bookdata]
-                # export.write("{:25} {:14s} {:2d} {}\n".format(bookdata[2], key, value, bookdata[1]))
             else:
+                print("Missing {} from catalog({})".format(key, len(catalog)))
                 export.write("{} {}\n".format(key, value))
 
         keys = []
@@ -71,7 +72,6 @@ def exportBooks(books, filename):
         keys.sort()
 
         for (key, value) in exported.items():
-            print(exported[key])
             exported[key].sort(key=lambda entry: entry[1])
                 
         for key in keys:
@@ -110,8 +110,9 @@ if args.compare:
         exit()
     invoice = createInvoice()
     if len(invoice) != 0:
-        exportBooks(books, 'booksExported')
-        exportBooks(invoice, 'invoiceExported')
+        catalog = createCatalog()
+        exportBooks(books, 'exported', catalog)
+        exportBooks(invoice, 'invoiceExported', catalog)
     print("Exported {} books from invoice".format(len(invoice)))
     exit()
 

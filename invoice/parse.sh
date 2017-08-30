@@ -16,8 +16,7 @@ done
 cd ../counts/
 rm -f out.txt
 for file in ./* ; do
-    convert $file -resize 200% $file
-    convert -antialias $file
+    convert $file -antialias -resize 200% $file
     tesseract $file -psm 6 stdout | grep [0-9] >> out_tmp.txt
     echo "parsed count$file count page"
 done

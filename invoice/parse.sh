@@ -29,4 +29,6 @@ for line in `cat out_tmp.txt`; do
 done
 
 rm -f out_tmp.txt
-cat out.txt
+
+gedit out.txt &
+xviewer *.png &

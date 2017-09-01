@@ -157,9 +157,12 @@ while True:
 
     elif command == 'save':
         f = open(outfilename, 'w')
+        count = 0
         for (key, value) in books.items():
             f.write("{} {}\n".format(key, value))
+            count += value
         f.close()
+        print("Saved {} books".format(count))
     elif command == 'load':
         books = loadFile(outfilename)
         if len(books) == 0:

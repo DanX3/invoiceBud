@@ -155,7 +155,7 @@ while True:
 
             addBook(key, quantity)
 
-    elif command == 'save':
+    elif command == 'save' or command == 's':
         f = open(outfilename, 'w')
         count = 0
         for (key, value) in books.items():
